@@ -2,12 +2,14 @@
 #include "MacUILib.h"
 #include "objPos.h"
 #include "Player.h"
+#include "Food.h"
 
 using namespace std;
 
 #define DELAY_CONST 100000
 
 GameMechs* mech;
+Food* food;
 objPos** board;
 //int height =  10;
 //int width = 20;
@@ -50,11 +52,16 @@ void Initialize(void)
     int height = mech->getBoardSizeY();
     int width = mech->getBoardSizeX();
     
+    food = new Food();
+
+
     x = new Player(mech);
     board = new objPos*[height];
     for(int i =0; i< height; i++){
         board[i] = new objPos[width];
     }
+
+    food->generateFood(x->getPlayerPos(), width, height);
    
    
 }
@@ -79,9 +86,16 @@ void DrawScreen(void)
      
     int height = mech->getBoardSizeY();
     int width = mech->getBoardSizeX();
+
     objPos playerPos = x->getPlayerPos();
     int pX = playerPos.pos->x;
     int pY = playerPos.pos->y;
+
+    objPos foodPosition = food->getFoodPos();
+    int fX = foodPosition.pos->x;
+    int fY = foodPosition.pos->y;
+
+
     if(!mech->getLoseFlagStatus()){
         for (int i = 0; i < height; i++)
             {
@@ -95,9 +109,10 @@ void DrawScreen(void)
                     
                 }
             }
+
             board[pY][pX].setObjPos(pY, pX, playerPos.symbol);
-            board[1][1].setObjPos(1,1,'A');
-            board[2][2].setObjPos(2,2,'B');
+            board[fY][fX].setObjPos(fY, fX, foodPosition.symbol);
+
             for(int i =0; i < height; i++){
                 for(int j = 0; j < width; j++){
                     MacUILib_printf("%c", board[i][j].symbol);
@@ -128,8 +143,8 @@ void CleanUp(void)
     }
     delete[] board;  
     delete mech;  
-    delete x;    
+    delete x;
+    delete food;
 
     MacUILib_uninit();
 }
-
