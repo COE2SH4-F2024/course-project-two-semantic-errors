@@ -27,6 +27,7 @@ class Player
         objPosArrayList* getPlayerPosList() const;
         bool checkFoodConsumption(objPos curr, objPos food);
         void increasePlayerLength(objPosArrayList* x, objPos curr);
+        bool checkSelfCollision(objPosArrayList* list, objPos curr);
         // More methods to be added here
 
     private:

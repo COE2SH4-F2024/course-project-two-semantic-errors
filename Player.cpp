@@ -110,15 +110,22 @@ void Player::movePlayer()
         head.pos->y = 1;
     }
     
-    bool check = checkFoodConsumption(head, foodPos);
+    bool checkFood = checkFoodConsumption(head, foodPos);
     
-    if(check){
+    if(checkFood){
         increasePlayerLength(playerPosList, head);
         foodObj->generateFood(playerPosList,sizeX, sizeY);
         mainGameMechsRef->incrementScore();
     }else{
         playerPosList->insertHead(head);
         playerPosList->removeTail(); 
+    }
+
+    bool checkEnd = checkSelfCollision(playerPosList, head);
+
+    if(checkEnd){
+        mainGameMechsRef->setLoseFlag();
+        
     }
 }
 
@@ -130,4 +137,14 @@ bool Player::checkFoodConsumption(objPos curr, objPos food){
 
 void Player::increasePlayerLength(objPosArrayList* x, objPos curr){
     x->insertHead(curr);
+}
+
+bool Player::checkSelfCollision(objPosArrayList* list, objPos curr){
+    int size = list->getSize();
+
+    for(int i = 1; i < size; i++){
+        if (list->getElement(i).isPosEqual(&curr)) return true;
+        else continue;
+    }
+    return false;
 }

@@ -131,7 +131,7 @@ void DrawScreen(void)
             }
         MacUILib_printf("\nCURRENT SCORE: %d", mech->getScore());
     }else{
-        MacUILib_printf("**GAME OVER**\n**SCORE: %d**",mech->getScore());
+        MacUILib_printf("**GAME OVER**\n**SCORE: %d**\n**PRESS ESC TO EXIT**",mech->getScore());
     }
         
     
