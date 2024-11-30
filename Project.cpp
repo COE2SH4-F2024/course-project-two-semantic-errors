@@ -147,4 +147,5 @@ void CleanUp(void)
     delete food;
 
     MacUILib_uninit();
+    printf("hi");
 }
