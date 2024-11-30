@@ -73,8 +73,7 @@ objPos objPosArrayList::getTailElement() const
 
 objPos objPosArrayList::getElement(int index) const
 {
-    //if(index < 0) index = 0;  
-    //else if(index >= listSize) index = listSize - 1;
+    if(index < 0 || index >= listSize) throw std::out_of_range("Index out of range for list");
 
     return aList[index];
 }
