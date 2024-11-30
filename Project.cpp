@@ -77,6 +77,15 @@ void RunLogic(void)
 {
     x->updatePlayerDir();
     x->movePlayer();
+
+    objPos playerPos = x->getPlayerPos();
+    objPos foodPosition = food->getFoodPos();
+
+    if (playerPos.pos->x == foodPosition.pos->x && playerPos.pos->y == foodPosition.pos->y)
+    {
+        food->generateFood(playerPos, mech->getBoardSizeX(), mech->getBoardSizeY());
+
+    }
    
 }
 
