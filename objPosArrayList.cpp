@@ -35,8 +35,15 @@ void objPosArrayList::insertHead(objPos thisPos)
 
 void objPosArrayList::insertTail(objPos thisPos)
 {
-    if(listSize >= arrayCapacity){
-        throw std::overflow_error("List Capacity Exceeded");
+    if (listSize >= arrayCapacity) {
+        // Resize logic here
+        arrayCapacity *= 2; // or use another resizing strategy
+        objPos* newArr = new objPos[arrayCapacity]; // reallocate to a bigger array
+        for (int i = 0; i < listSize; i++) {
+            newArr[i] = aList[i]; // copy existing items to new array
+        }
+        delete[] aList;
+        aList = newArr;
     }
 
     aList[listSize++] = thisPos;

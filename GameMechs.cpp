@@ -6,7 +6,7 @@ GameMechs::GameMechs()
     boardSizeY = 15;
     exitFlag = false;
     loseFlag = false;
-    score = 0;
+    score = 1;
 
     
 }

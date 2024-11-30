@@ -55,13 +55,13 @@ void Initialize(void)
     food = new Food();
 
 
-    x = new Player(mech);
+    x = new Player(mech,food);
     board = new objPos*[height];
     for(int i =0; i< height; i++){
         board[i] = new objPos[width];
     }
 
-    food->generateFood(x->getPlayerPos(), width, height);
+    food->generateFood(x->getPlayerPosList(), width, height);
    
    
 }
@@ -80,12 +80,6 @@ void RunLogic(void)
 
     objPos playerPos = x->getPlayerPos();
     objPos foodPosition = food->getFoodPos();
-
-    if (playerPos.pos->x == foodPosition.pos->x && playerPos.pos->y == foodPosition.pos->y)
-    {
-        food->generateFood(playerPos, mech->getBoardSizeX(), mech->getBoardSizeY());
-
-    }
    
 }
 
@@ -119,8 +113,15 @@ void DrawScreen(void)
                 }
             }
 
-            board[pY][pX].setObjPos(pY, pX, playerPos.symbol);
-            board[fY][fX].setObjPos(fY, fX, foodPosition.symbol);
+        objPosArrayList* myList = x->getPlayerPosList();
+        int size = myList->getSize();
+        for (int i = 0; i < size; i++){
+            objPos current = myList->getElement(i);
+            board[current.pos->y][current.pos->x].setObjPos(current.pos->y, current.pos->x,current.symbol);
+        }
+
+        
+        board[fY][fX].setObjPos(fY, fX, foodPosition.symbol);
 
             for(int i =0; i < height; i++){
                 for(int j = 0; j < width; j++){
@@ -128,6 +129,7 @@ void DrawScreen(void)
                 }
                 MacUILib_printf("\n");
             }
+        MacUILib_printf("\nCURRENT SCORE: %d", mech->getScore());
     }else{
         MacUILib_printf("**GAME OVER**\n**SCORE: %d**",mech->getScore());
     }

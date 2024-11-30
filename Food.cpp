@@ -12,25 +12,28 @@ Food::~Food()
 
 }
 
-void Food::generateFood(objPos blockOff, int boardSizeX, int boardSizeY)
+void Food::generateFood(objPosArrayList* blockOff, int boardSizeX, int boardSizeY)
 {
     srand(time(NULL));
 
-    int check = 0;
+    bool isNotOnArray;
     int randomx, randomy;
-
-    while(!check)
-    {
+    int size = blockOff->getSize();
+    do{
         randomx = (rand() % (boardSizeX - 2)) + 1;
         randomy = (rand() % (boardSizeY - 2)) + 1;
+        isNotOnArray = true;
+        for(int i = 0 ; i < size; i++){
+            int x = blockOff->getElement(i).pos->x;
+            int y = blockOff->getElement(i).pos->y;
+            if(x == randomx && y == randomy){
+                isNotOnArray = false;
+                break;
+            }
 
-
-        if (randomx != blockOff.pos->x || randomy != blockOff.pos->y)
-        {
-            foodPos.setObjPos(randomx, randomy, '$');
-            check = 1;
         }
-    }
+    }while(!isNotOnArray);
+    foodPos.setObjPos(randomx, randomy, '$');
 }
 
 
