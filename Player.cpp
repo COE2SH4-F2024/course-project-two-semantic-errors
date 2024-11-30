@@ -109,8 +109,11 @@ void Player::movePlayer()
     } else if (head.pos->y >= sizeY - 1) {
         head.pos->y = 1;
     }
-    if(head.isPosEqual(&foodPos)){
-        playerPosList->insertHead(head);
+    
+    bool check = checkFoodConsumption(head, foodPos);
+    
+    if(check){
+        increasePlayerLength(playerPosList, head);
         foodObj->generateFood(playerPosList,sizeX, sizeY);
         mainGameMechsRef->incrementScore();
     }else{
@@ -120,3 +123,11 @@ void Player::movePlayer()
 }
 
 // More methods to be added
+bool Player::checkFoodConsumption(objPos curr, objPos food){
+    if (curr.isPosEqual(&food)) return true;
+    else return false;
+}
+
+void Player::increasePlayerLength(objPosArrayList* x, objPos curr){
+    x->insertHead(curr);
+}
