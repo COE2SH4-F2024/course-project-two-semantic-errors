@@ -10,6 +10,7 @@ class Food
 {
     private:
         objPos foodPos;
+        objPosArrayList* foodBucket;
 
     public:
         Food();
@@ -17,6 +18,7 @@ class Food
 
         void generateFood(objPosArrayList* blockOff, int boardSizeX, int boardSizeY);
         objPos getFoodPos() const;
+        objPosArrayList* getFoodBucket() const;
 };
 
 

@@ -79,8 +79,6 @@ void RunLogic(void)
     x->movePlayer();
 
     objPos playerPos = x->getPlayerPos();
-    objPos foodPosition = food->getFoodPos();
-   
 }
 
 void DrawScreen(void)
@@ -94,9 +92,6 @@ void DrawScreen(void)
     int pX = playerPos.pos->x;
     int pY = playerPos.pos->y;
 
-    objPos foodPosition = food->getFoodPos();
-    int fX = foodPosition.pos->x;
-    int fY = foodPosition.pos->y;
 
 
     if(!mech->getLoseFlagStatus()){
@@ -120,17 +115,22 @@ void DrawScreen(void)
             board[current.pos->y][current.pos->x].setObjPos(current.pos->y, current.pos->x,current.symbol);
         }
 
-        
-        board[fY][fX].setObjPos(fY, fX, foodPosition.symbol);
-
-            for(int i =0; i < height; i++){
-                for(int j = 0; j < width; j++){
-                    MacUILib_printf("%c", board[i][j].symbol);
-                }
-                MacUILib_printf("\n");
+        for (int i = 0; i < 3; i++)
+        {
+            objPos foodPosition = food->getFoodBucket()->getElement(i);
+            int fX = foodPosition.pos->x;
+            int fY = foodPosition.pos->y;
+            board[fY][fX].setObjPos(fY, fX, foodPosition.symbol);
+        }
+        for(int i =0; i < height; i++){
+            for(int j = 0; j < width; j++){
+                MacUILib_printf("%c", board[i][j].symbol);
             }
+            MacUILib_printf("\n");
+        }
         MacUILib_printf("\nCURRENT SCORE: %d", mech->getScore());
-    }else{
+    }   else
+    {
         MacUILib_printf("**GAME OVER**\n**SCORE: %d**\n**PRESS ESC TO EXIT**",mech->getScore());
     }
         
