@@ -89,9 +89,7 @@ void DrawScreen(void)
     int width = mech->getBoardSizeX();
 
     objPos playerPos = x->getPlayerPos();
-    int pX = playerPos.pos->x;
-    int pY = playerPos.pos->y;
-
+    
 
 
     if(!mech->getLoseFlagStatus()){

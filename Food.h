@@ -19,6 +19,7 @@ class Food
         void generateFood(objPosArrayList* blockOff, int boardSizeX, int boardSizeY);
         objPos getFoodPos() const;
         objPosArrayList* getFoodBucket() const;
+        //char getFoodType(int index) const;
 };
 
 

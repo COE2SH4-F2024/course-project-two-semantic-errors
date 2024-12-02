@@ -60,4 +60,9 @@ objPosArrayList* Food::getFoodBucket() const
     return foodBucket;
 }
 
+/*char Food::getFoodType(int index) const
+{
+    return foodBucket->getElement(index).getSymbol();
+}
+*/
 
