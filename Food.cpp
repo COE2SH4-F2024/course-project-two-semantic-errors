@@ -20,7 +20,7 @@ void Food::generateFood(objPosArrayList* blockOff, int boardSizeX, int boardSize
     foodBucket = new objPosArrayList();
 
     int totalFood = 3;
-    char foodSymbols[3] {'?', '!', '$'};
+    char foodSymbols[3] = {'?', '!', '$'};
 
     for (int i = 0; i<totalFood; i++) //Generate 3 food items
     {
